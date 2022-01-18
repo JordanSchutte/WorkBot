@@ -2,7 +2,7 @@
 
 outlook = win32.Dispatch('outlook.application').GetNamespace('MAPI')
 outlookInbox = mapi.GetDefaultFolder(6)
-exportMsg = msg.Restrict("[Subject] = 'RE: TC SO Export (14102)'")
+exportMsg = msg.Restrict("[Subject] = 'Foo'")
 outputDir = r'C:\Users\Jordan\Python\Export' #This needs to save on local, not host
 
 def exportSave():
@@ -17,7 +17,7 @@ def exportSave():
             print('error when saving the attachment:' + str(e))
 
 def walmartExport():
-    todayWorkbook = openpyx1.load_workbook(filename= 'WM SO Export ' + exportFormat + ' (14102) - TransPro.xlsx')
+    todayWorkbook = openpyx1.load_workbook(filename= 'Foo ' + exportFormat + ' Bar - Baz.xlsx')
     activeSheet = todayWorkbook.active
     todayWorkBook.insert_cols(1)
 
