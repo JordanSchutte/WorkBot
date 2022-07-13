@@ -1,0 +1,22 @@
+Sub ActivateWB(File As String, FilePath As String)
+'Works 5/30/2022
+'MUST HAVE PATH END WITH "\"
+
+'This will check to see if file name is
+'already open, if not will open file
+Dim wb As Workbook
+For Each wb In Application.Workbooks
+    If wb.Name = File Then
+        wb.Activate
+        MsgBox "Workbook found and activated"
+        Exit Sub
+    End If
+Next
+    MsgBox "Workbook not open"
+    Workbooks.Open FilePath & File
+    MsgBox "Workbook was found, opened, and activated"
+End Sub
+'TODO
+'
+
+
