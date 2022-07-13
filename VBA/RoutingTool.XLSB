@@ -1,0 +1,45 @@
+Sub RoutingTool()
+'Works 6/1/2022
+'This will open FILENAME.xlsx
+'Then save and replace the file in the zip folder
+
+    Call ActivateWB("FILENAME.xlsx", "FILEPATH\")
+    'unhide all columns and rows
+    Columns.EntireRow.Hidden = False
+    Columns.EntireColumn.Hidden = False
+    'Hide all the columns
+    'TODO
+    'This is brute force
+    'Maybe make it hide if it finds color = red in row '2' if able?
+    Columns("J").EntireColumn.Hidden = True
+    Columns("M").EntireColumn.Hidden = True
+    Columns("P:Q").EntireColumn.Hidden = True
+    Columns("S:T").EntireColumn.Hidden = True
+    Columns("X").EntireColumn.Hidden = True
+    Columns("AC:AF").EntireColumn.Hidden = True
+    Columns("AJ:AQ").EntireColumn.Hidden = True
+    Columns("AS:AT").EntireColumn.Hidden = True
+    Columns("AV").EntireColumn.Hidden = True
+    Columns("AX").EntireColumn.Hidden = True
+    'Copy all the data for zip file
+    Range("A2").Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.SpecialCells(xlCellTypeVisible).Select
+    Selection.Copy
+    'This saves data to the copy file outside the .zip file
+    Call ActivateWB("FILENAME.xlsx", "FILEPATH\")
+    Range("A1").Select
+    ActiveSheet.Paste
+    'Pause to make sure filter is applied
+    MsgBox "Pasted data"
+    'A filter constraint
+    'Rows("1:1").Select
+    'Selection.AutoFilter
+    ActiveWorkbook.Close True
+    'This will zip the file and replace old data
+    Call CreateZipFile("FILEPATH.xlsx", "FILEPATH.zip")
+End Sub
+'TODO
+'this can only be ran after getting new data from IS2 DB
+'Can we automate that process with VBA?
