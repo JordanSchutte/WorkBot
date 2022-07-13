@@ -1,0 +1,31 @@
+Sub ImportTextFileToExcel()
+'Works 6/15/2022
+'simplified transportation macro
+'TODO
+'save copys
+'logic for 008 and 050
+'add to load schedule
+'update dropped sqrs report and dropped sqrs analysis
+'save those then send email after completed
+    Dim textFileNum, rowNum, colNum As Integer
+    Dim textFileLocation, textDelimiter, textData As String
+    Dim tArray() As String
+    Dim sArray() As String
+    textFileLocation = "H:\Corporate\Inventory Planning\ENS287_008.TXT"
+    textDelimiter = "|"
+    textFileNum = FreeFile
+    Open textFileLocation For Input As textFileNum
+    textData = Input(LOF(textFileNum), textFileNum)
+    Close textFileNum
+    tArray() = Split(textData, vbLf)
+    For rowNum = LBound(tArray) To UBound(tArray) - 1
+        If Len(Trim(tArray(rowNum))) <> 0 Then
+            sArray = Split(tArray(rowNum), textDelimiter)
+            For colNum = LBound(sArray) To UBound(sArray)
+               ActiveSheet.Cells(rowNum + 1, colNum + 1) = sArray(colNum)
+            Next colNum
+        End If
+    Next rowNum
+    MsgBox "Data Imported Successfully", vbInformation
+End Sub
+
