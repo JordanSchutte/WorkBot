@@ -3,7 +3,7 @@
 outlook = win32.Dispatch('outlook.application').GetNamespace('MAPI')
 outlookInbox = mapi.GetDefaultFolder(6)
 exportMsg = msg.Restrict("[Subject] = 'Foo'")
-outputDir = r'C:\Users\Jordan\Python\Export' #This needs to save on local, not host
+outputDir = r'Directorypath' #This needs to save on local, not host
 
 def exportSave():
     for exportMsg in all_outlookInbox:
