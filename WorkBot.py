@@ -11,7 +11,7 @@ import os.path as path
 from datetime import date
 from datetime import timedelta, date
 
-path = r'C:\Users\Jordan\Python\Resources'
+path = r'Filepath'
 today = date.today()
 delivery = today+timedelta(days=10)
 ship = today+timedelta(days=7)
