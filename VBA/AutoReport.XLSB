@@ -1,0 +1,114 @@
+Sub DropReport()
+'Works 7/26/2022 JORDAN SCHUTTE
+'This runs the import and gets the ints
+'Pretty brute force, could make helper functions
+Dim XSum As Long
+Dim YSum As Long
+Dim XTotal As Long
+Dim YTotal As Long
+    'Open the import file
+    Call ActivateWB("File", "FilePath")
+    'Extract new X sum
+    XSum = WorksheetFunction.Sum(Range("T:T"))
+    'import X data
+    Call Import("File", "FilePath")
+    'Extract all X sum
+    XTotal = WorksheetFunction.Sum(Range("S:S"))
+    'Open the import file
+    Call ActivateWB("File", "FilePath")
+    'Extract new Y sum
+    RDCSum = WorksheetFunction.Sum(Range("T:T"))
+    'import Y data
+    Call ActivateWB("File", "FilePath")
+    'Extract all X & Y sum
+    RDCTotal = WorksheetFunction.Sum(Range("S:S"))
+    'Open the XY Report
+    Call ActivateWB("File", "FilePath")
+    'Move to the data sheet
+    Worksheets("DATA").Activate
+    'Get to the bottom of the sheet
+    lr = ActiveSheet.UsedRange.Rows(ActiveSheet.UsedRange.Rows.Count).Row
+    'Copy paste the formatting
+    ActiveSheet.Rows(lr).Copy
+    ActiveSheet.Rows(lr + 1).PasteSpecial xlFormats
+    Application.CutCopyMode = False
+    'Enter the data into the cells
+    ActiveSheet.Cells(lr + 1, 1).Select
+    'Adds Todays weekday in column A
+    ActiveCell.Value = WeekdayName(Weekday(Date))
+    ActiveCell.Offset(0, 1).Select
+    'Adds the date in column B
+    ActiveCell.Value = Date
+    ActiveCell.Offset(0, 1).Select
+    'Adds new X sum in column C
+    ActiveCell.Value = XSum
+    ActiveCell.Offset(0, 1).Select
+    'Adds total SQ sum in column D
+    ActiveCell.Value = XTotal
+    ActiveCell.Offset(0, 1).Select
+    'Adds Total trucks in column E
+    ActiveCell.Value = XTotal / 500
+    ActiveCell.Offset(0, 2).Select
+    'Adds Todays weekday in column G
+    ActiveCell.Value = WeekdayName(Weekday(Date))
+    ActiveCell.Offset(0, 1).Select
+    'Adds the date in column H
+    ActiveCell.Value = Date
+    ActiveCell.Offset(0, 1).Select
+    'Adds new SQs sum in column I
+    ActiveCell.Value = RDCSum
+    ActiveCell.Offset(0, 1).Select
+    'Adds total SQ sum in column J
+    ActiveCell.Value = YTotal
+    ActiveCell.Offset(0, 1).Select
+    'Adds Total trucks in column K
+    ActiveCell.Value = YTotal / 500
+    ActiveCell.Offset(0, 2).Select
+    'Adds Todays weekday in column M
+    ActiveCell.Value = WeekdayName(Weekday(Date))
+    ActiveCell.Offset(0, 1).Select
+    'Adds Date to column N
+    ActiveCell.Value = Date
+    ActiveCell.Offset(0, 1).Select
+    'Adds total dropped squares in column O
+    ActiveCell.Value = XSum + YSum
+    ActiveCell.Offset(0, 1).Select
+    'Adds total sqs in column P
+    ActiveCell.Value = XTotal + YTotal
+    ActiveCell.Offset(0, 1).Select
+    'Adds total truck to column Q
+    ActiveCell.Value = (XTotal / 500) + (YTotal / 500)
+    'navigate to the FOO sheet
+    Sheets("FOO").Select
+    Range("C1").Select
+    'Get to the bottom of list
+    Selection.End(xlDown).Select
+    'Get to next open cell
+    ActiveCell.Offset(1, 0).Select
+    'Add date to column C
+    ActiveCell.Value = Date
+    ActiveCell.Offset(0, 1).Select
+    'Add X and Y sum of new SQ
+    ActiveCell.Value = XSum + YSum
+    Call ActivateWB("File", "FilePath")
+    Worksheets("BAR").Activate
+    'Find next open cell and paste fiscal wk num
+    Range("A1").Select
+    'Brute force way around the bad table formatting
+    Selection.End(xlDown).Select
+    Selection.End(xlDown).Select
+    ActiveCell.Offset(1, 0).Select
+    'Adds fiscal week num to column A
+    ActiveCell.Value = WorksheetFunction.WeekNum(Date) - 1
+    ActiveCell.Offset(0, 1).Select
+    'Adds FY & year num to column B
+    ActiveCell.Value = "FY" & Year(Date)
+    ActiveCell.Offset(0, 1).Select
+    ActiveCell.Value = Date
+    ActiveCell.Offset(0, 1).Select
+    'Adds Total X to column D
+    ActiveCell.Value = XSum + YSum
+    ActiveCell.Offset(0, 1).Select
+    'Adds Total truck to column E
+    ActiveCell.Value = (XTotal + YTotal) / 500
+End Sub
