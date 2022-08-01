@@ -14,7 +14,7 @@ from datetime import timedelta
 
 today = date.today()
 todayFormat = today.strftime('%m/%d/%Y')
-path = r'C:\Users\jordan\lpthw\Export'
+path = r'Filepath'
 #this stuff will change once testing is done
 scriptPath, _ = os.path.split(__file__)
 scratchPath = os.path.join(scriptPath, 'Scratch')
@@ -51,8 +51,8 @@ print(poList)
 #TODO phase3
 #either copy and paste this data to clip board or overwrite tempfile
 #find a dict that works with Access
-#create connection with Access/Host PC this script might need to be on DerekPC
-#open 'Wal-Mart QB Sync' table
+#create connection with Access/Host PC this script might need to be on XPC
+#open 'X QB Sync' table
 #paste data from edited file into table
 #ASSERT that the table accepted todays data
 #run 'WM QB Sync' MACRO
