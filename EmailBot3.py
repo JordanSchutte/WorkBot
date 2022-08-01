@@ -11,7 +11,7 @@ from datetime import timedelta
 
 yest = date.today() - datetime.timedelta(days = 1)
 yestFormat = yest.strftime('%m/%d/%Y')
-path = r'C:\Users\jordan\lpthw\Export'
+path = r'Filepath'
 #script path so this bot can run no matter where the host file exists
 scriptPath, _ = os.path.split(__file__)
 scratchPath = os.path.join(scriptPath, 'Scratch')
@@ -24,7 +24,7 @@ outlook = win32com.client.Dispatch('Outlook.Application').GetNamespace('MAPI')
 inbox = outlook.GetDefaultFolder(6)
 #this filters my messages to look for specific emails
 yestMessages = inbox.Items.Restrict("[ReceivedTime] >= '" + yestFormat + "'")
-yestMessages = yestMessages.Restrict("[Subject] = 'EOD Tracking'")
+yestMessages = yestMessages.Restrict("[Subject] = 'Tracking'")
 
 print(yestFormat)
 print(yestMessages)
