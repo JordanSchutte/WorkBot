@@ -1,0 +1,22 @@
+Sub Import(txtFile As String, PTag As String, SheetName As String)
+'Works 7/1/2022 JORDAN SCHUTTE
+'This runs after the X Macro and Y Macros
+    Call ActivateWB(txtFile, "Filepath")
+    'Saves the file automatically
+    ActiveWorkbook.SaveAs ("Filepath" & Format(Now(), "MM-DD-YY") & PTag)
+    'Copy the data from X to Y
+    ActiveSheet.Range("E2:W2").Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.Copy
+    'Open the X file if it is not already
+    Call ActivateWB("File", "Filepath")
+    'This will go to the correct sheet for either X or Y
+    Worksheets(SheetName).Activate
+    'This will find column D and ctrl + down to the bottom to find where we can past new orders
+    Range("D2").Select
+    'This goes one lower to basically allow to paste data at bottom of table
+     lr = ActiveSheet.UsedRange.Rows(ActiveSheet.UsedRange.Rows.Count).Row
+    Cells(lr + 1, 4).Select
+    ActiveSheet.Paste
+End Sub
+
